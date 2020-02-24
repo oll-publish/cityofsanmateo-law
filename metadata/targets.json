@@ -1,0 +1,77 @@
+{
+ "signatures": [
+  {
+   "keyid": "ba65808977548012b65ab8229f7b939e2339703cec3686ef816f2480274e7f9b",
+   "sig": "a79ef46c577102e931c6440d3539d82a8d5e1c8b39a09301ebfade474fd1bce27a2b633a8f971ceb2416bd179f1a2748d660da1a9922b7f3c9640b4bb0bc43e110e9aa8325a1065fc60669216ae48667126a73fd58610b177740f6d1a5b0690793e2b19ef3ccd1af9898a4b2840e0e3b9a774b07349bc6f0d77dcd1d0a8be6d8266fc264f30ffcb67c18d1548183ef5eff79f34239aaa492578510afffbf885cbad9ef27ec191c0ba465028988252f495f4c0323e4dd554d152b12d4ceb66e6cf03cf29d7a899d4e7931132e7ac2ed26d073b2cf9c21f8d8eead636e7aa18eadc05b4bbbe907302c7379640b2a4a92f02be95698360d39d98f913e9949f149d6"
+  }
+ ],
+ "signed": {
+  "_type": "targets",
+  "delegations": {
+   "keys": {
+    "ba65808977548012b65ab8229f7b939e2339703cec3686ef816f2480274e7f9b": {
+     "keyid_hash_algorithms": [
+      "sha256",
+      "sha512"
+     ],
+     "keytype": "rsa",
+     "keyval": {
+      "public": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtdvJF1Q7fRNTQfgGMH/W\n2Sb4O/PemLHKcBj6Q1Nadvii+lF+lfsD/VqzEuNaM2fpJpostWzJR1jdeyjRZS9G\ndToEA9iSD0MczHRLWa9a1NMcPBC/Edts1oXogk23+NSL/Ugc5H+WikDuwMMYhA3o\nNgVgAtfDfJQJFkbI033DwcYjbBmlt/gnTVNUSHuoG8M2EurchMnZZIqSawEaL82Q\nIFUhEuGSljcb/WRj6XHY7upCvjJOMN2kH/zz4kGR8j5t61TKiLiepjunuQMGg+fl\njEm4v0fandpwWLdx7kYSbftmbQjnuPhBd3g3BQ721O4dYkLA/ncca9XryLqN8Cac\ngQIDAQAB\n-----END PUBLIC KEY-----"
+     },
+     "scheme": "rsa-pkcs1v15-sha256"
+    }
+   },
+   "roles": [
+    {
+     "keyids": [
+      "ba65808977548012b65ab8229f7b939e2339703cec3686ef816f2480274e7f9b"
+     ],
+     "name": "law",
+     "paths": [
+      "cityofsanmateo/law-xml",
+      "cityofsanmateo/law-html",
+      "cityofsanmateo/law-xml-codified",
+      "capstone",
+      "branch"
+     ],
+     "terminating": true,
+     "threshold": 1
+    },
+    {
+     "keyids": [
+      "ba65808977548012b65ab8229f7b939e2339703cec3686ef816f2480274e7f9b"
+     ],
+     "name": "docs",
+     "paths": [
+      "cityofsanmateo/law-docs"
+     ],
+     "terminating": true,
+     "threshold": 1
+    },
+    {
+     "keyids": [
+      "ba65808977548012b65ab8229f7b939e2339703cec3686ef816f2480274e7f9b"
+     ],
+     "name": "assets",
+     "paths": [
+      "cityofsanmateo/law-static-assets"
+     ],
+     "terminating": true,
+     "threshold": 1
+    }
+   ]
+  },
+  "expires": "2020-05-26T01:35:20Z",
+  "spec_version": "1.0",
+  "targets": {
+   "test-auth-repo": {
+    "hashes": {
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "sha512": "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"
+    },
+    "length": 0
+   }
+  },
+  "version": 1
+ }
+}
