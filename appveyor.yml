@@ -4,15 +4,8 @@ environment:
     # http://www.appveyor.com/docs/installed-software#python
     - PYTHON: "C:\\Python36-x64"
 
-# uncomment to RDP at end of build ...
-on_finish:
-  - ps: >-
-      If ($env:DEBUG -eq $True) {
-        $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-      };
-
-      # Do not build feature branch with open Pull Requests
-      skip_branch_with_pr: true
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
 
 init:
   # exit if secure variables are unset (saves time if fired by a non-team pull request)
@@ -67,23 +60,27 @@ before_build:
 
   - git clone git@github.com:oll-test-repos/cityofsanmateo-law-xml.git ..\cityofsanmateo\law-xml
   - git clone git@github.com:oll-test-repos/cityofsanmateo-law-html.git ..\cityofsanmateo\law-html
-  - git clone git@github.com:oll-test-repos/cityofsanmateo-law-xml-codified.git ..\cityofsanmateo\law-xml-codified
-  - git -C ../cityofsanmateo-law remote set-url origin git@github.com:oll-test-repos/cityofsanmateo-law.git
+  - git clone  git@github.com:oll-test-repos/cityofsanmateo-law-xml-codified.git ..\cityofsanmateo\law-xml-codified
 
+  - git -C ..\cityofsanmateo-law remote set-url origin git@github.com:oll-test-repos/cityofsanmateo-law.git
+
+  - "%PYTHON%\\python.exe -m pip -q install wheel"
+  - "%PYTHON%\\python.exe -m pip -q install -r requirements.txt"
   # print out the git commits for each repo
   - git -C ..\cityofsanmateo\law-xml rev-parse HEAD
   - git -C ..\cityofsanmateo\law-xml-codified rev-parse HEAD
   - git -C ..\cityofsanmateo\law-html rev-parse HEAD
 
+
 build_script:
   - ps: $env:FLAG = if ($env:APPVEYOR_PULL_REQUEST_NUMBER -eq $null) { "--deploy" }
 
   # merge commits of update or speculative branches
-  - "%PYTHON%\\python.exe -m oll.tools.cli ci merge_commits --library-root .. --auth ../cityofsanmateo-law %FLAG%"
+  - "%PYTHON%\\python.exe  -m oll.tools.cli ci merge_commits --library-root .. --auth ../cityofsanmateo-law %FLAG%"
 
   # update timestamp and/or snapshot metadata files if about to expire
   # if previous command merges something to master, this command won't update anything
   - "%PYTHON%\\python.exe -m oll.tools.cli ci update_timestamp_and_snapshot --auth ../cityofsanmateo-law --expires-in-next-hours %SCHEDULED_BUILD_INTERVAL% %FLAG%"
 
 test_script:
-  - echo Skipping doomed test discovery to save time
+- echo Skipping doomed test discovery to save time
