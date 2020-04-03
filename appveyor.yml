@@ -7,6 +7,13 @@ environment:
 # Do not build feature branch with open Pull Requests
 skip_branch_with_pr: true
 
+# uncomment to RDP at end of build ...
+on_finish:
+  - ps: >-
+      If ($env:DEBUG -eq $True) {
+        $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+      };
+
 init:
   # exit if secure variables are unset (saves time if fired by a non-team pull request)
   - ps: if ($env:GH_SSH_PRIVATE_KEY -eq $null) { exit }
@@ -30,7 +37,6 @@ install:
   - ps: $fileContent += $env:timestamp_key.Replace(" ", "`n")
   - ps: $fileContent += "`n-----END RSA PRIVATE KEY-----`n"
   - ps: Set-Content c:\users\appveyor\timestamp $fileContent
-
 
 before_build:
   - ps: >-
@@ -71,7 +77,6 @@ before_build:
   - git -C ..\cityofsanmateo\law-xml-codified rev-parse HEAD
   - git -C ..\cityofsanmateo\law-html rev-parse HEAD
 
-
 build_script:
   - ps: $env:FLAG = if ($env:APPVEYOR_PULL_REQUEST_NUMBER -eq $null) { "--deploy" }
 
@@ -83,4 +88,4 @@ build_script:
   - "%PYTHON%\\python.exe -m oll.tools.cli ci update_timestamp_and_snapshot --auth ../cityofsanmateo-law --expires-in-next-hours %SCHEDULED_BUILD_INTERVAL% %FLAG%"
 
 test_script:
-- echo Skipping doomed test discovery to save time
+  - echo Skipping doomed test discovery to save time
